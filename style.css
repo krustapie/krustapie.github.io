@@ -1,11 +1,12 @@
 body {
-  background: rgb(125, 198, 205);
+  background:pink;
+  background-image: url('https://media.giphy.com/media/u98zWbe3jgJoI/giphy.gif');
   color: rgb(45, 45, 45);
   padding: 10px;
   font-family: arial;
 }
 #all-contents {
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
 }
 
