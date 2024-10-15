@@ -15,7 +15,7 @@
 			user-select: none;
 			display: block;
 			position: absolute;
-			top: 100px;
+			top: 0px;
 			/* Change me! */
 			left: 0px;
 		}
@@ -66,8 +66,14 @@
 			//////////////////////////////////////////////////////////////////
 
 			// TODO 2 - Variable declarations 
+var positionX
+positionX = 0
 
+var points 
+points = 0
 
+var speed
+speed = 10
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -75,6 +81,8 @@
 			turn it around! 
 			*/
 			function update() {
+positionX = (positionX) + speed;
+moveBoxTo(positionX)
 
 
 			};
@@ -85,8 +93,10 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-
-
+				positionX = 0
+				points = points + 1
+				speed = speed + points
+				changeBoxText(points)
 			};
 
 
