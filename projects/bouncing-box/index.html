@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bouncing Box</title>
+    <script src="jquery.min.js"></script>
+    <style>
+      .box {
+        width: 70px;
+        height: 70px;
+        background-color: teal;
+        font-size: 300%;
+        text-align: center;
+        user-select: none;
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+
+      .board {
+        height: 100vh;
+        background-image: url("");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+
+  <body class="board">
+    <div class="box">0</div>
+
+    <script>
+      (function () {
+        "use strict";
+        
+        var box = jQuery(".box"); // reference to the HTML .box element
+        var board = jQuery(".board"); // reference to the HTML .board element
+        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
+        var boardHeight = board.height(); // the maximum Y-Coordinate of the screen
+        setInterval(update, 16.25); // Call update function every 16.25 ms
+
+        box.on("click", handleBoxClick); // Click event handler
+
+        // Box's position variables
+        var positionX = 0;
+        var positionY = 0;
+        var points = 0;
+
+        // Speed variables for X and Y
+        var speedX = 10;
+        var speedY = 10;
+
+        function moveBoxTo(newPositionX, newPositionY) {
+          box.css("left", newPositionX);
+          box.css("top", newPositionY);
+        }
+
+        function changeBoxText(newText) {
+          box.text(newText);
+        }
+
+        function update() {
+          positionX += speedX; // Move box in X direction
+          positionY += speedY; // Move box in Y direction
+          moveBoxTo(positionX, positionY); // Update box position
+
+          // Bounce off right
+          if (positionX > boardWidth - box.width()) {
+            positionX = boardWidth - box.width(); // Ensure it doesn't go out of bounds
+            speedX *= -1; // Reverse direction
+          }
+
+          // Bounce off left
+          if (positionX < 0) {
+            positionX = 0; // Ensure it doesn't go out of bounds
+            speedX *= -1; // Reverse direction
+          }
+
+          // Bounce off bottom
+          if (positionY > boardHeight - box.height()) {
+            positionY = boardHeight - box.height(); // Ensure it doesn't go out of bounds
+            speedY *= -1; // Reverse direction
+          }
+
+          // Bounce off top
+          if (positionY < 0) {
+            positionY = 0; // Ensure it doesn't go out of bounds
+            speedY *= -1; // Reverse direction
+          }
+        }
+
+        function handleBoxClick() {
+          positionX = 50;
+          positionY = 50;
+          points += 1;
+          speedX += 1; // Increase speed in X direction
+          speedY += 1; // Increase speed in Y direction
+
+          changeBoxText(points);
+        }
+      })();
+    </script>
+  </body>
+</html>
