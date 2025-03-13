@@ -135,7 +135,7 @@ function moveSnake() {
   }
 
   if (snake.head.direction === "down") {
-    snake.head.column = snake.head.column + 1;
+    snake.head.row = snake.head.row + 1;
   }
 
 
