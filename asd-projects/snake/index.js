@@ -124,12 +124,10 @@ function moveSnake() {
     snake.head.column = snake.head.column - 1;
   }
 
-  
   if (snake.head.direction === "up") {
     snake.head.row = snake.head.row - 1;
   }
 
-  
   if (snake.head.direction === "right") {
     snake.head.column = snake.head.column + 1;
   }
@@ -138,30 +136,35 @@ function moveSnake() {
     snake.head.row = snake.head.row + 1;
   }
 
-
   repositionSquare(snake.head);
 }
 
 function hasHitWall() {
-  /* 
-  TODO 8: Should return true if the snake's head has collided with the four walls of the
-  board, false otherwise.
-  
-  HINT: What will the row and column of the snake's head be if this were the case?
-  */
+  if (snake.head.row === -1) {
+    return true;
+  }
+
+  if (snake.head.row === ROWS + 1) {
+    return true;
+  }
+
+  if (snake.head.column === -1) {
+    return true;
+  }
+
+  if (snake.head.column === COLUMNS + 1) {
+    return true;
+  }
 
   return false;
 }
 
 function hasCollidedWithApple() {
-  /* 
-  TODO 9: Should return true if the snake's head has collided with the apple, 
-  false otherwise
-  
-  HINT: Both the apple and the snake's head are aware of their own row and column
-  */
-
-  return false;
+  if (snake.head.row === apple.row && snake.head.column === apple.column) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function handleAppleCollision() {
@@ -182,10 +185,25 @@ function handleAppleCollision() {
   If the tail is moving "down", place the next snakeSquare above it.
   etc...
   */
-  var row = 0;
-  var column = 0;
+  var row = snake.tail.row;
+  var column = snake.tail.column;
 
   // code to determine the row and column of the snakeSquare to add to the snake
+  if (snake.tail.direction === "left") {
+    column++;
+  }
+
+  if (snake.tail.direction === "up") {
+    row++;
+  }
+
+  if (snake.tail.direction === "right") {
+    column--;
+  }
+
+  if (snake.tail.direction === "down") {
+    row--;
+  }
 
   makeSnakeSquare(row, column);
 }
