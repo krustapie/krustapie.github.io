@@ -140,7 +140,7 @@ function hasHitWall() {
     return true;
   }
 
-  if (snake.head.row === ROWS) {
+  if (snake.head.row === ROWS + 1) {
     return true;
   }
 
@@ -148,7 +148,7 @@ function hasHitWall() {
     return true;
   }
 
-  if (snake.head.column === COLUMNS) {
+  if (snake.head.column === COLUMNS + 1) {
     return true;
   }
 
@@ -258,26 +258,36 @@ function makeApple() {
  * column on the board, position it on the screen. Finally, add the new
  * snakeSquare to the snake.body Array and set a new tail.
  */
+var randomColor1 = `rgb(${Math.floor(Math.random() * 256)},
+${Math.floor(Math.random() * 256)},
+${Math.floor(Math.random() * 256)})`;
+var randomColor2 = `rgb(${Math.floor(Math.random() * 256)},
+${Math.floor(Math.random() * 256)},
+${Math.floor(Math.random() * 256)})`;
+
 function makeSnakeSquare(row, column) {
-  // initialize a new snakeSquare Object
   var snakeSquare = {};
 
-  // make the snakeSquare.element Object and append it to the board
   snakeSquare.element = $("<div>").addClass("snake").appendTo(board);
 
-  // initialize the row and column properties on the snakeSquare Object
   snakeSquare.row = row;
   snakeSquare.column = column;
 
-  // set the position of the snake on the screen
+  // Random color generator for alternating colors
+
+  // Alternate colors: even-indexed body parts get the random color
+  if (snake.body.length % 2 === 0) {
+    snakeSquare.element.css("background-color", randomColor1);
+  } else {
+    snakeSquare.element.css("background-color", randomColor2);
+  }
+
   repositionSquare(snakeSquare);
 
-  // if this is the head, add the snake-head id
   if (snake.body.length === 0) {
     snakeSquare.element.attr("id", "snake-head");
   }
 
-  // add snakeSquare to the end of the body Array and set it as the new tail
   snake.body.push(snakeSquare);
   snake.tail = snakeSquare;
 }
