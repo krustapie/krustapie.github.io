@@ -140,7 +140,7 @@ function hasHitWall() {
     return true;
   }
 
-  if (snake.head.row === ROWS + 1) {
+  if (snake.head.row === ROWS) {
     return true;
   }
 
@@ -148,7 +148,7 @@ function hasHitWall() {
     return true;
   }
 
-  if (snake.head.column === COLUMNS + 1) {
+  if (snake.head.column === COLUMNS) {
     return true;
   }
 
