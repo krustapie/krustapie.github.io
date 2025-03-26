@@ -75,7 +75,7 @@ function repositionGameItem() {
 
 function redrawGameItem() {
   $("#walker").css("left", walker.Xcoordinate);
-  $("walker").css("top", walker.Ycoordinate);
+  $("#walker").css("top", walker.Ycoordinate);
 }
   function endGame() {
     // stop the interval timer
