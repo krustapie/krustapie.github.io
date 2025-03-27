@@ -97,6 +97,9 @@ function runProgram() {
     if (walker.Xcoordinate > bWidth) {
       walker.Xcoordinate = bWidth;
     }
+    if (walker.Ycoordinate < 0) {
+      walker.Ycoordinate = 0;
+    }
     if (walker.Ycoordinate > bHeight) {
       walker.Ycoordinate = bHeight;
     }
