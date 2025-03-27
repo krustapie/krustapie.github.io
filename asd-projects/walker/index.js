@@ -30,7 +30,7 @@ function runProgram() {
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL); // execute newFrame every 0.0166 seconds (60 Frames per second)
   //change 'eventType' to the type of event you want to handle
   $(document).on("keydown", handleKeyDown); // change 'eventType' to the type of event you want to handle
-
+  $(document).on("keyup", handleKeyUp);
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -40,8 +40,9 @@ function runProgram() {
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    repositionGameItem()
-    redrawGameItem()
+    repositionGameItem();
+    wallCollision();
+    redrawGameItem();
   }
 
   /* 
@@ -49,34 +50,58 @@ function runProgram() {
   */
   function handleKeyDown(event) {
     if (event.which === KEY.LEFT) {
-      walker.Xspeed = -5
+      walker.Xspeed = -5;
     }
     if (event.which === KEY.UP) {
-      walker.Yspeed = -5
+      walker.Yspeed = -5;
     }
     if (event.which === KEY.RIGHT) {
-      walker.Xspeed = 5
+      walker.Xspeed = 5;
     }
     if (event.which === KEY.DOWN) {
-      walker.Yspeed = 5
+      walker.Yspeed = 5;
     }
+  }
 
-
-
+  function handleKeyUp(event) {
+    if (
+      event.which === KEY.LEFT ||
+      event.which === KEY.UP ||
+      event.which === KEY.RIGHT ||
+      event.which === KEY.DOWN
+    ) {
+      walker.Xspeed = 0;
+      walker.Yspeed = 0;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-function repositionGameItem() {
-  walker.Xcoordinate = walker.Xcoordinate + walker.Xspeed
-  walker.Ycoordinate = walker.Ycoordinate + walker.Yspeed
-}
+  function repositionGameItem() {
+    walker.Xcoordinate = walker.Xcoordinate + walker.Xspeed;
+    walker.Ycoordinate = walker.Ycoordinate + walker.Yspeed;
+  }
 
-function redrawGameItem() {
-  $("#walker").css("left", walker.Xcoordinate);
-  $("#walker").css("top", walker.Ycoordinate);
-}
+  function redrawGameItem() {
+    $("#walker").css("left", walker.Xcoordinate);
+    $("#walker").css("top", walker.Ycoordinate);
+  }
+
+  function wallCollision() {
+    var bWidth = $("#board").width() -  50;
+    var bHeight = $("#board").height() - 50;
+    if (walker.Xcoordinate < 0) {
+      walker.Xcoordinate = 0;
+    }
+    if (walker.Xcoordinate > bWidth) {
+      walker.Xcoordinate = bWidth;
+    }
+    if (walker.Ycoordinate > bHeight) {
+      walker.Ycoordinate = bHeight;
+    }
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
