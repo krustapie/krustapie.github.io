@@ -2,7 +2,7 @@
 const SQUARE_SIZE = 20;
 
 // set constants for the indexes of R, G, and B values
-const RED = 0;
+const RED = 255;
 const GREEN = 1;
 const BLUE = 2;
 
